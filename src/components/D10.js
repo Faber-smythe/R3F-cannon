@@ -29,11 +29,21 @@ const colors = [
     'chocolate', 'darkblue', 'darkgreen', 'darkslateblue', 'lightpink',
     'red', 'aliceblue', 'aqua', 'cadetblue', 'fuchsia', 'chartreuse',
     'chocolate', 'darkblue', 'darkgreen', 'darkslateblue', 'lightpink',
+    'red', 'aliceblue', 'aqua', 'cadetblue', 'fuchsia', 'chartreuse',
+    'chocolate', 'darkblue', 'darkgreen', 'darkslateblue', 'lightpink',
+    'red', 'aliceblue', 'aqua', 'cadetblue', 'fuchsia', 'chartreuse',
+    'chocolate', 'darkblue', 'darkgreen', 'darkslateblue', 'lightpink',
 ]
 function Get3dModel() {
 
 
     let material = create_dice_materials(former.standard_d20_dice_face_labels, 30, 1);
+    // 10 lightpink D10.js:55
+    // 21 lightpink D10.js:55
+    // 32 lightpink D10.js:55
+    // 43 lightpink D10.js:55
+    // 54 lightpink D10.js:55
+    // 65 lightpink
 
     //volatile
     const loader = new THREE.TextureLoader();
@@ -45,18 +55,66 @@ function Get3dModel() {
     let geom = new THREE.Geometry().fromBufferGeometry(gltf.scene.children[0].geometry);
     material = [];
     geom.faceVertexUvs[0].forEach(function(elem, i){
-        material.push(new THREE.MeshPhongMaterial({color: colors[i]}))
+        switch(i){
+            case 0:
+            case 1:
+                material.push(new THREE.MeshPhongMaterial({color: 'red'}))
+                break;
+            case 2:
+            case 3:
+                material.push(new THREE.MeshPhongMaterial({color: 'aliceblue'}))
+                break;
+            case 4:
+            case 5:
+                material.push(new THREE.MeshPhongMaterial({color: 'chocolate'}))
+                break;
+            case 6:
+            case 7:
+                material.push(new THREE.MeshPhongMaterial({color: 'darkgreen'}))
+                break;
+            case 8:
+            case 9:
+                material.push(new THREE.MeshPhongMaterial({color: 'fuchsia'}))
+                break;
+            case 10:
+            case 11:
+                material.push(new THREE.MeshPhongMaterial({color: 'aqua'}))
+                break;
+            case 12:
+            case 13:
+                material.push(new THREE.MeshPhongMaterial({color: 'darkslateblue'}))
+                break;
+            case 14:
+            case 15:
+                material.push(new THREE.MeshPhongMaterial({color: 'chartreuse'}))
+                break;
+            case 16:
+            case 17:
+                material.push(new THREE.MeshPhongMaterial({color: 'blue'}))
+                break;
+            case 74:
+            case 75:
+                material.push(new THREE.MeshPhongMaterial({color: 'lightpink'}))
+                break;
+            default:
+                material.push(new THREE.MeshPhongMaterial({color: 'black'}))
+                break;
+        }
+    if(i == 9){console.log(material[i])}
     })
+    console.log(material)
+    geom.faces.forEach(function(face, i){
+        face.materialIndex = i
+    });
 
-    geom.faces.forEach(function(face, i){face.materialIndex = i});
 
-    console.log(geom)
     // gltf.scene.children[0].material = material
 
     const [ref] = useConvexPolyhedron(() => ({
         args:geom,
-        mass: 0,
-        position:[0, 0, 3],
+        mass: 10,
+        position:[0.5, 2.5, 3],
+        rotation:[Math.PI*-0, Math.PI*0, Math.PI*0]
     }))
     return (
         <mesh

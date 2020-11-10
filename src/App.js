@@ -59,7 +59,7 @@ export default class extends Component{
         return(
             <>
                 <Canvas id="myCanvas">
-                    <Physics gravity ={[0, 0, -30]}>
+                    <Physics gravity ={[0, 0, -10]}>
                         {/*<ambientLight />*/}
                         <pointLight position={[5, 5, 10]}  />
                         {/*<spotLight position={[5, 5, 5]} angle={0.3} penumbra={1} intensity={2} castShadow shadow-mapSize-width={1028} shadow-mapSize-height={1028} />*/}

@@ -27,8 +27,8 @@ export default function D4(props) {
     }
     const [ref] = useConvexPolyhedron(() => ({
         args:geom,
-        mass: 1,
-        position:[-4, 0, 3],
+        mass: 10,
+        position:[-4, 0, 2],
         rotation: props.rotation,
     }))
 

@@ -40,8 +40,8 @@ export default function D8() {
     // Assign geometry to component
     const [ref] = useConvexPolyhedron(() => ({
         args:geom,
-        mass: 0,
-        position:[-2, 0, 2],
+        mass: 10,
+        position:[-2.6, 0, 2],
         rotation:[Math.PI*1.4, 0, Math.PI*1.6]
     }))
 

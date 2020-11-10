@@ -24,7 +24,7 @@ export default function D6() {
     // Assign geometry to component
     const [ref] = useConvexPolyhedron(() => ({
         args:geom,
-        mass: 1,
+        mass: 10,
         rotation:[Math.PI*1.4, 0, Math.PI*1.6],
         position:[2, 0, 2]
     }))
