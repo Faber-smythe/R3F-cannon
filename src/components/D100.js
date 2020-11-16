@@ -18,7 +18,7 @@ let former = diceFormer();
 
 function Get3dModel() {
 
-    let ordered_material = create_dice_materials(former.standard_d20_dice_face_labels, 30, 1.4, 10);
+    let ordered_material = create_dice_materials(former.standard_d100_dice_face_labels, 30, 1.4, 100);
 
 
     const gltf = useLoader(GLTFLoader, D10_blender)
@@ -74,7 +74,7 @@ function Get3dModel() {
             default:
                 material.push(new THREE.MeshPhongMaterial({color: '#202020'}))
                 break;
-            }
+        }
     })
     geom.faces.forEach(function(face, i){
         face.materialIndex = i
@@ -165,10 +165,10 @@ function Get3dModel() {
     })
 
     const [ref] = useConvexPolyhedron(() => ({
-        args:geom,
+        args: geom,
         mass: 10,
-        position:[2.8, 0.5, 3.5],
-        rotation:[Math.PI*-0.4, Math.PI*0, Math.PI*0]
+        position: [3, -1, 3.5],
+        rotation: [Math.PI*-0.4, Math.PI*0, Math.PI*0]
     }))
     return (
         <mesh
@@ -179,7 +179,7 @@ function Get3dModel() {
     )
 }
 
-export default function D10() {
+export default function D100() {
     return (
         <>
             <Suspense >

@@ -12,6 +12,8 @@ import D4 from './components/D4.js';
 import D6 from './components/D6.js';
 import D8 from './components/D8.js';
 import D10 from './components/D10.js';
+import D100 from './components/D100.js';
+import D12 from './components/D12.js';
 import Desk from './components/Desk.js';
 
 import {create_dice_materials} from "./3Dscript/materials.js";
@@ -56,15 +58,17 @@ export default class extends Component{
             <>
                 <Canvas id="myCanvas">
                     <Physics gravity ={[0, 0, -10]}>
-                        {/*<ambientLight />*/}
+                        <ambientLight />
                         <pointLight position={[5, 5, 10]}  />
                         {/*<spotLight position={[5, 5, 5]} angle={0.3} penumbra={1} intensity={2} castShadow shadow-mapSize-width={1028} shadow-mapSize-height={1028} />*/}
 
                         <Desk />
-                        <D4/>
+                        <D4 />
                         <D6 />
                         <D8 />
                         <D10 />
+                        <D100 />
+                        <D12 />
 
                     </Physics>
                 </Canvas>

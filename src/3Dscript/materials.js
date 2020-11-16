@@ -85,8 +85,8 @@ export function create_dice_materials(face_labels, size, margin, dice = null) {
             context.translate(canvas.width*0.68, -canvas.height/5.4);
             context.rotate(Math.PI / 3 );
         }
-        if(dice == 10){
-            context.fillText(text, canvas.width / 2, canvas.height / 1.8);
+        if(dice == 100 || dice == 10){
+            context.fillText(text, canvas.width / 2, canvas.height / 1.6);
         }else{
             context.fillText(text, canvas.width / 2, canvas.height / 2);
         }
