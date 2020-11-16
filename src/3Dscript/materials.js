@@ -67,7 +67,7 @@ export function get_d4_materials(size, margin){
 //       OTHER DICE MATERIALS
 // ---------------------------------------
 
-export function create_dice_materials(face_labels, size, margin) {
+export function create_dice_materials(face_labels, size, margin, dice = null) {
     function create_text_texture(text, color, back_color) {
         if (text == undefined) return null;
         let canvas = document.createElement("canvas");
@@ -80,7 +80,16 @@ export function create_dice_materials(face_labels, size, margin) {
         context.textAlign = "center";
         context.textBaseline = "middle";
         context.fillStyle = color;
-        context.fillText(text, canvas.width / 2, canvas.height / 2);
+        if(dice == 8){
+            //correct the positions by a sixth turn
+            context.translate(canvas.width*0.68, -canvas.height/5.4);
+            context.rotate(Math.PI / 3 );
+        }
+        if(dice == 10){
+            context.fillText(text, canvas.width / 2, canvas.height / 1.8);
+        }else{
+            context.fillText(text, canvas.width / 2, canvas.height / 2);
+        }
         if (text === '6' || text === '9') {
             context.fillText('    .', canvas.width / 2, canvas.height / 2);
         }

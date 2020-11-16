@@ -10,7 +10,7 @@ let former = diceFormer();
 export default function D6() {
 
     let material = create_dice_materials(former.standard_d20_dice_face_labels, 30, 0.7);
-    material = material.slice(0, 6);
+    material = material.slice(1, 7);
 
     let geom = new THREE.BoxGeometry(1)
 

@@ -58,12 +58,22 @@ export default function diceFormer(){
     diceFormer.calc_texture_size = function(approx) {
         return Math.pow(2, Math.floor(Math.log(approx) / Math.log(2)));
     }
-    diceFormer.standard_d20_dice_face_labels = ['1', '2', '3', '4', '5', '6', '7', '8',
+    diceFormer.standard_d20_dice_face_labels = ['0', '1', '2', '3', '4', '5', '6', '7', '8',
         '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20'];
 
     diceFormer.standard_d100_dice_face_labels = ['00', '10', '20', '30', '40', '50',
         '60', '70', '80', '90'];
 
+    // trigo functions for easier degree values
+    diceFormer.cos = function(deg){
+        return Math.cos((deg * Math.PI)/180.0)
+    }
+    diceFormer.sin = function(deg){
+        return Math.sin((deg * Math.PI)/180.0)
+    }
+    diceFormer.tan = function(deg){
+        return Math.tan((deg * Math.PI)/180.0)
+    }
     return diceFormer;
 }
 

@@ -37,15 +37,11 @@ export default class extends Component{
         if(document.getElementById('hey') && typeof(document.getElementById('hey')) !== "undefined"){
             document.getElementById('hey').innerHTML = '';
             document.getElementById('hey').append(section);
-            console.log(section);
-            console.log(hey);
         }else{
             hey = document.createElement('div');
             hey.id = 'hey';
             hey.append(section);
             document.getElementById('root').append(hey);
-            console.log(section);
-            console.log(hey);
         }
     }
 

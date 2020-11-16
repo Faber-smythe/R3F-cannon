@@ -37,84 +37,189 @@ const colors = [
 function Get3dModel() {
 
 
-    let material = create_dice_materials(former.standard_d20_dice_face_labels, 30, 1);
-    // 10 lightpink D10.js:55
-    // 21 lightpink D10.js:55
-    // 32 lightpink D10.js:55
-    // 43 lightpink D10.js:55
-    // 54 lightpink D10.js:55
-    // 65 lightpink
+    let ordered_material = create_dice_materials(former.standard_d20_dice_face_labels, 30, 1.4, 10);
+
 
     //volatile
     const loader = new THREE.TextureLoader();
     const texture = loader.load(texture234);
-    material = new THREE.MeshPhongMaterial({map:texture});
+    let material = new THREE.MeshPhongMaterial({map:texture});
 
     const gltf = useLoader(GLTFLoader, D10_blender)
 
     let geom = new THREE.Geometry().fromBufferGeometry(gltf.scene.children[0].geometry);
+    let faceIds_smalls = [1, 5, 7, 11, 15, 2, 8, 12, 16, 74]
+    let faceIds_larges = [0, 4, 6, 10, 14, 3, 9, 13, 17, 75]
     material = [];
+    // ------------------------------------
+    // TEXTURE MATERIALS
     geom.faceVertexUvs[0].forEach(function(elem, i){
+        // if(!faceIds_smalls.includes(i) && !faceIds_larges.includes(i)){
+        //     material.push(new THREE.MeshPhongMaterial({color: 'white'}))
+        // }else{
+        //     material.push(new THREE.MeshPhongMaterial({map:texture}))
+        // }
         switch(i){
             case 0:
             case 1:
-                material.push(new THREE.MeshPhongMaterial({color: 'red'}))
+                material.push(ordered_material[7])
                 break;
-            case 2:
             case 3:
-                material.push(new THREE.MeshPhongMaterial({color: 'aliceblue'}))
+            case 2:
+                // material.push(new THREE.MeshPhongMaterial({color: 'aliceblue'}))
+                material.push(ordered_material[2])
                 break;
             case 4:
             case 5:
-                material.push(new THREE.MeshPhongMaterial({color: 'chocolate'}))
+                // material.push(new THREE.MeshPhongMaterial({color: 'chocolate'}))
+                // material.push(new THREE.MeshPhongMaterial({map:texture}))
+                material.push(ordered_material[5])
                 break;
             case 6:
             case 7:
-                material.push(new THREE.MeshPhongMaterial({color: 'darkgreen'}))
+                // material.push(new THREE.MeshPhongMaterial({color: 'darkgreen'}))
+                // material.push(new THREE.MeshPhongMaterial({map:texture}))
+                material.push(ordered_material[1])
                 break;
-            case 8:
             case 9:
-                material.push(new THREE.MeshPhongMaterial({color: 'fuchsia'}))
+            case 8:
+                // material.push(new THREE.MeshPhongMaterial({color: 'fuchsia'}))
+                // material.push(new THREE.MeshPhongMaterial({map:texture}))
+                material.push(ordered_material[6])
                 break;
             case 10:
             case 11:
-                material.push(new THREE.MeshPhongMaterial({color: 'aqua'}))
+                // material.push(new THREE.MeshPhongMaterial({color: 'aqua'}))
+                // material.push(new THREE.MeshPhongMaterial({map:texture}))
+                material.push(ordered_material[9])
                 break;
-            case 12:
             case 13:
-                material.push(new THREE.MeshPhongMaterial({color: 'darkslateblue'}))
+            case 12:
+                // material.push(new THREE.MeshPhongMaterial({color: 'darkslateblue'}))
+                // material.push(new THREE.MeshPhongMaterial({map:texture}))
+                material.push(ordered_material[8])
                 break;
             case 14:
             case 15:
-                material.push(new THREE.MeshPhongMaterial({color: 'chartreuse'}))
+                // material.push(new THREE.MeshPhongMaterial({color: 'chartreuse'}))
+                // material.push(new THREE.MeshPhongMaterial({map:texture}))
+                material.push(ordered_material[3])
                 break;
-            case 16:
             case 17:
-                material.push(new THREE.MeshPhongMaterial({color: 'blue'}))
+            case 16:
+                // material.push(new THREE.MeshPhongMaterial({color: 'blue'}))
+                // material.push(new THREE.MeshPhongMaterial({map:texture}))
+                material.push(ordered_material[4])
                 break;
-            case 74:
             case 75:
-                material.push(new THREE.MeshPhongMaterial({color: 'lightpink'}))
+            case 74:
+                // material.push(new THREE.MeshPhongMaterial({color: 'lightpink'}))
+                // material.push(new THREE.MeshPhongMaterial({map:texture}))
+                material.push(ordered_material[0])
                 break;
             default:
-                material.push(new THREE.MeshPhongMaterial({color: 'black'}))
+                material.push(new THREE.MeshPhongMaterial({color: '#202020'}))
+                // material.push(new THREE.MeshPhongMaterial({map:texture}))
                 break;
-        }
-    if(i == 9){console.log(material[i])}
+            }
     })
-    console.log(material)
+
     geom.faces.forEach(function(face, i){
         face.materialIndex = i
     });
+    // ------------------------------------
+    // TEXTURE MAPPINGS
+    let point_x = former.sin(64)*former.cos(64)*(1-former.tan(64)/2+former.tan(26)/2)
 
+    faceIds_smalls.forEach(function(faceId){
+        if([1, 7].includes(faceId)){
+            geom.faceVertexUvs[0][faceId] = [
+                new THREE.Vector2(
+                    1-point_x,
+                    (0.5-point_x)*former.tan(26)
+                ),
+                new THREE.Vector2(
+                    point_x,
+                    (0.5-point_x)*former.tan(26)
+                ),
+                new THREE.Vector2(0.5, 0),
+            ]
+        }else if([5, 11, 15].includes(faceId)){
 
-    // gltf.scene.children[0].material = material
+            geom.faceVertexUvs[0][faceId] = [
+                new THREE.Vector2(0.5, 0),
+                new THREE.Vector2(
+                    1-point_x,
+                    (0.5-point_x)*former.tan(26)
+                ),
+                new THREE.Vector2(
+                    point_x,
+                    (0.5-point_x)*former.tan(26)
+                ),
+            ]
+        }else{
+            geom.faceVertexUvs[0][faceId] = [
+                new THREE.Vector2(
+                    point_x,
+                    (0.5-point_x)*former.tan(26)
+                ),
+                new THREE.Vector2(0.5, 0),
+                new THREE.Vector2(
+                    1-point_x,
+                    (0.5-point_x)*former.tan(26)
+                )
+            ]
+        }
+    })
+    faceIds_larges.forEach(function(faceId){
+        if([3, 13, 17].includes(faceId)){
+            geom.faceVertexUvs[0][faceId] = [
+                new THREE.Vector2(0.5,1),
+                new THREE.Vector2(
+                    point_x,
+                    (0.5-point_x)*former.tan(26)
+                ),
+                new THREE.Vector2(
+                    1-point_x,
+                    (0.5-point_x)*former.tan(26)
+                )
+            ]
+        }else if([9, 75].includes(faceId)){
+            geom.faceVertexUvs[0][faceId] = [
+                new THREE.Vector2(
+                    point_x,
+                    (0.5-point_x)*former.tan(26)
+                ),
+                new THREE.Vector2(
+                    1-point_x,
+                    (0.5-point_x)*former.tan(26)
+                ),
+                new THREE.Vector2(0.5,1),
+            ]
+        }else{
+            geom.faceVertexUvs[0][faceId] = [
+                new THREE.Vector2(
+                    1-point_x,
+                    (0.5-point_x)*former.tan(26)
+                ),
+                new THREE.Vector2(0.5,1),
+                new THREE.Vector2(
+                    point_x,
+                    (0.5-point_x)*former.tan(26)
+                ),
+            ]
+        }
+    })
+
+    console.log(geom);
+    console.log(ordered_material);
 
     const [ref] = useConvexPolyhedron(() => ({
         args:geom,
         mass: 10,
-        position:[0.5, 2.5, 3],
-        rotation:[Math.PI*-0, Math.PI*0, Math.PI*0]
+        // position:[0.5, 2.5, 3],
+        position:[3, 0, 3.5],
+        rotation:[Math.PI*-0.4, Math.PI*0, Math.PI*0]
     }))
     return (
         <mesh

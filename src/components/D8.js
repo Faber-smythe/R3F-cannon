@@ -13,8 +13,8 @@ const texture = loader.load(texture234);
 
 export default function D8() {
 
-    let material = create_dice_materials(former.standard_d20_dice_face_labels, 30, 1);
-    material = material.slice(0, 8);
+    let material = create_dice_materials(former.standard_d20_dice_face_labels, 30, 1.2, 8);
+    material = material.slice(1, 9);
 
     let geom = new THREE.OctahedronGeometry(1)
 
